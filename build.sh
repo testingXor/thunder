@@ -1,6 +1,5 @@
 #!/bin/sh
 
-mvn clean install
 
 cd thunder-core
 mvn clean compile assembly:single
