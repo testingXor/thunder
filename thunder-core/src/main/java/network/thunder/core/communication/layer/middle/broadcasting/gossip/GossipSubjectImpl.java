@@ -89,7 +89,11 @@ public class GossipSubjectImpl implements GossipSubject, BroadcastHelper {
     }
 
     private void broadcast () {
-        synchronized (observerList) {
+        
+		/* ********OpenRefactory Warning********
+		 Synchronization should be on a private final field
+		*/
+		synchronized (observerList) {
             for (NodeObserver observer : observerList) {
                 List<ByteBuffer> objectList = dataObjectMap.get(observer);
                 if (objectList.size() > GossipProcessor.OBJECT_AMOUNT_TO_SEND) {
