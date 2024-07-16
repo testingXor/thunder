@@ -101,7 +101,11 @@ public class GossipSubjectImpl implements GossipSubject, BroadcastHelper {
     }
 
     private void addNewDataObjectToMap (NodeObserver nodeObserver, P2PDataObject dataObject) {
-        synchronized (observerList) {
+        
+		/* ********OpenRefactory Warning********
+		 Synchronization should be on a private final field
+		*/
+		synchronized (observerList) {
             for (NodeObserver nodeObserver1 : observerList) {
                 if (nodeObserver == null || nodeObserver != nodeObserver1) {
                     List<ByteBuffer> bufferList = dataObjectMap.get(nodeObserver1);
