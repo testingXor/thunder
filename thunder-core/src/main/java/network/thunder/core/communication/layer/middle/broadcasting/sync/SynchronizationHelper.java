@@ -97,7 +97,10 @@ public class SynchronizationHelper {
         int counter = 0;
         while (!fullySynchronized()) {
             Thread.sleep(100);
-            synchronized (syncClientList) {
+            /* ********OpenRefactory Warning********
+			 Synchronization should be on a private final field
+			*/
+			synchronized (syncClientList) {
                 for (SyncClient syncClient : syncClientList) {
                     Integer currentSegment = currentlySyncing.get(syncClient);
                     if (currentSegment != null) {
