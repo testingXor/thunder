@@ -218,7 +218,11 @@ public class InMemoryDBHandler implements DBHandler {
 
     @Override
     public Channel getChannel (int id) {
-        synchronized (channelList) {
+        
+		/* ********OpenRefactory Warning********
+		 Synchronization should be on a private final field
+		*/
+		synchronized (channelList) {
             Optional<Channel> optional = channelList.stream().filter(channel1 -> channel1.id == id).findAny();
             if (optional.isPresent()) {
                 return optional.get();
