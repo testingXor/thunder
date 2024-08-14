@@ -125,7 +125,10 @@ public class InMemoryDBHandler implements DBHandler {
             }
         }
 
-        synchronized (totalList) {
+        /* ********OpenRefactory Warning********
+		 Synchronization should be on a private final field
+		*/
+		synchronized (totalList) {
             Iterator<P2PDataObject> iterator2 = totalList.iterator();
             while (iterator2.hasNext()) {
                 P2PDataObject object2 = iterator2.next();
