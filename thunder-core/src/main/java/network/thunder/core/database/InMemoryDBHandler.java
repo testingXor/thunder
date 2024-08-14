@@ -79,7 +79,11 @@ public class InMemoryDBHandler implements DBHandler {
             totalList.remove(ipObject);
         }
         if (ipObject instanceof PubkeyIPObject) {
-            synchronized (pubkeyIPList) {
+            
+			/* ********OpenRefactory Warning********
+			 Synchronization should be on a private final field
+			*/
+			synchronized (pubkeyIPList) {
                 pubkeyIPList.remove(ipObject);
             }
         }
