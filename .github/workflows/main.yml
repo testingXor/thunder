@@ -33,7 +33,9 @@ jobs:
              
     steps:
       # Comment out this line below if you are using GitHub Enterprise
-      - uses: actions/checkout@v2 
+      - uses: actions/checkout@v2
+        with:
+          node-version: 16
       - name: orjob
         run: |
           /workspace/configure_run.sh ${{ github.ref_name }} \
