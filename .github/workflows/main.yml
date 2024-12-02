@@ -34,8 +34,13 @@ jobs:
     steps:
       # Comment out this line below if you are using GitHub Enterprise
       - uses: actions/checkout@v2
+      
+        # Set up Node.js (with Node 16 to ensure GLIBC compatibility)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+          
       - name: orjob
         run: |
           /workspace/configure_run.sh ${{ github.ref_name }} \
