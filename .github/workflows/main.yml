@@ -1,4 +1,5 @@
 # This is a basic workflow to help you get started with iCR CI/CD
+# If using GitHub Enterprise, this example will use ge.openrefactory.com as the sample URL
 name: Openrefactory_CI
 
 # Controls when the workflow will run
@@ -6,40 +7,34 @@ on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: [ "master" ]
-
+    
 env:
-  # Registry configuration
+  # Use this as the REGISTRY if you are using GitHub cloud. This sample script defaults to GitHub cloud
   REGISTRY: ghcr.io
+
+  # Use this as the REGISTRY if you are using GitHub Enterprise
+  # Substitute <ge.openrefactory.com> with your Enterprise URL
+  #REGISTRY: docker.ge.openrefactory.com 
 
 jobs:
   OR_JOB:
-    runs-on: ubuntu-latest # Use GitHub-hosted runners
+    runs-on: ubuntu-latest # If it's not working use ubuntu-latest
+    # If you are using GitHub Enterprise, please substitute <self-hosted> with your Enterprise runner name
+    #runs-on: <self-hosted>
     container:
-      image: ghcr.io/testingxor/icr-github:latest # Ensure this image is compatible with your environment
-      
+            # Use this as the image if you are using GitHub cloud
+            # This sample script defaults to GitHub cloud. Substitute the User's login ID for <User_ID> ,<User_ID> must be in lower case
+            image: ghcr.io/testingxor/icr-github:latest
+
+            # Use this as the image if you are using GitHub Enterprise
+            # Substitute <ge.openrefactory.com> with your Enterprise URL.
+            # Substitute the User's login ID for <User_ID>
+            #image: docker.ge.openrefactory.com/<User_ID>/Project_Name/icr-github:latest
+             
     steps:
-      # Checkout the repository
-      - name: Checkout Repository
-        uses: actions/checkout@v2 
-
-      # Validate and update GLIBC
-      - name: Validate and Update GLIBC
-        run: |
-          echo "Checking GLIBC version..."
-          current_version=$(ldd --version | head -n 1 | awk '{print $NF}')
-          required_version="2.28"
-          
-          if [ "$(printf '%s\n' "$required_version" "$current_version" | sort -V | head -n1)" != "$required_version" ]; then
-            echo "Updating GLIBC to version $required_version..."
-            apt-get update && apt-get install -y software-properties-common
-            add-apt-repository -y ppa:ubuntu-toolchain-r/test
-            apt-get update && apt-get install -y libc6
-          else
-            echo "GLIBC is up-to-date (Version: $current_version)"
-          fi
-
-      # Run the OpenRefactory job
-      - name: Run OR Job
+      # Comment out this line below if you are using GitHub Enterprise
+      - uses: actions/checkout@v2 
+      - name: orjob
         run: |
           /workspace/configure_run.sh ${{ github.ref_name }} \
           ${{ github.repositoryUrl }} \
