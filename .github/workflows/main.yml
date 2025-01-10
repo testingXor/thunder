@@ -25,7 +25,7 @@ jobs:
             # This sample script defaults to GitHub cloud. Substitute the User's login ID for <User_ID> ,<User_ID> must be in lower case
             image: ghcr.io/testingxor/icr-github:latest
 
-            # Use this as the image if you are using GitHub Enterprise
+  
             # Substitute <ge.openrefactory.com> with your Enterprise URL.
             # Substitute the User's login ID for <User_ID>
             #image: docker.ge.openrefactory.com/<User_ID>/Project_Name/icr-github:latest
