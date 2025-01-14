@@ -6,10 +6,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: [ "master" ]
-    
-env:
-  # Use this as the REGISTRY if you are using GitHub cloud. This sample script defaults to GitHub cloud
-  REGISTRY: ghcr.io
 
   # Use this as the REGISTRY if you are using GitHub Enterprise
   # Substitute <ge.openrefactory.com> with your Enterprise URL
@@ -23,7 +19,7 @@ jobs:
     container:
             # Use this as the image if you are using GitHub cloud
             # This sample script defaults to GitHub cloud. Substitute the User's login ID for <User_ID> ,<User_ID> must be in lower case
-            image: ghcr.io/testingxor/icr-github:latest
+            image: openrefactory/icr-github-cicd:5.0.0
 
   
             # Substitute <ge.openrefactory.com> with your Enterprise URL.
