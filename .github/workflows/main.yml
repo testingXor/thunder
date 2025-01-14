@@ -1,15 +1,8 @@
-# This is a basic workflow to help you get started with iCR CI/CD
-# If using GitHub Enterprise, this example will use get .openrefactory.com as the sample URL
 name: Openrefactory_CI
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: [ "master" ]
-
-  # Use this as the REGISTRY if you are using GitHub Enterprise
-  # Substitute <ge.openrefactory.com> with your Enterprise URL
-  #REGISTRY: docker.ge.openrefactory.com 
 
 jobs:
   OR_JOB:
