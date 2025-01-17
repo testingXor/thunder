@@ -12,7 +12,7 @@ jobs:
     container:
             # Use this as the image if you are using GitHub cloud
             # This sample script defaults to GitHub cloud. Substitute the User's login ID for <User_ID> ,<User_ID> must be in lower case
-            image: openrefactory/icr-github-cicd:test.4
+            image: openrefactory/icr-github-cicd:5.0.0
   
             # Substitute <ge.openrefactory.com> with your Enterprise URL.
             # Substitute the User's login ID for <User_ID>
@@ -20,7 +20,7 @@ jobs:
              
     steps:
       # Comment out this line below if you are using GitHub Enterprise
-      - uses: actions/checkout@v2
+      #- uses: actions/checkout@v2
       - name: orjob
         run: |
           /workspace/configure_run.sh ${{ github.ref_name }} \
