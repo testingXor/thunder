@@ -1,27 +1,27 @@
+# Name of the GitHub Actions workflow
 name: Openrefactory_CI
 
+# Controls when the workflow will run
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" ]  # Trigger the workflow on push events to the "master" branch
+  pull_request:
+    branches: [ "master" ]  # Trigger the workflow on pull request events to the "master" branch
 
 jobs:
   OR_JOB:
-    runs-on: ubuntu-latest # If it's not working use ubuntu-latest
-    # If you are using GitHub Enterprise, please substitute <self-hosted> with your Enterprise runner name
-    #runs-on: <self-hosted>
+    # Use GitHub-hosted runners or self-hosted runners based on your environment
+    runs-on: ubuntu-latest # Use ubuntu-latest for GitHub cloud
+
     container:
-            # Use this as the image if you are using GitHub cloud
-            # This sample script defaults to GitHub cloud. Substitute the User's login ID for <User_ID> ,<User_ID> must be in lower case
-            image: openrefactory/icr-github-cicd:5.0.0
-  
-            # Substitute <ge.openrefactory.com> with your Enterprise URL.
-            # Substitute the User's login ID for <User_ID>
-            #image: docker.ge.openrefactory.com/<User_ID>/Project_Name/icr-github:latest
-             
+      # Use this image for GitHub Cloud CI/CD
+      image: openrefactory/icr-github-cicd:5.0.0
+
     steps:
-      # Comment out this line below if you are using GitHub Enterprise
-      #- uses: actions/checkout@v2
-      - name: orjob
+      # Checkout repository to access source code
+      - uses: actions/checkout@v3
+
+      - name: Run OpenRefactory Analysis
         run: |
           /workspace/configure_run.sh ${{ github.ref_name }} \
           ${{ github.repositoryUrl }} \
@@ -33,3 +33,19 @@ jobs:
           ${{ secrets.LANGUAGE }} \
           ${{ secrets.LANGUAGE_VERSION }} 
         shell: bash
+
+      - name: Check workflow status
+        if: failure()
+        run: echo "Workflow failed, please check logs."
+
+# Instructions for Setting Up GitHub Secrets:
+# 1. Go to your GitHub repository > Settings > Secrets and variables > Actions.
+# 2. Click "New repository secret" and add the following secrets:
+#    - ICR_URL: OpenRefactory instance URL (e.g., https://icr.example.com)
+#    - ICR_USER_NAME: Your OpenRefactory username
+#    - ICR_CI_CD_ACCESS_TOKEN: Your CI/CD authentication token
+#    - PERSONAL_ACCESS_TOKEN: GitHub personal access token
+#    - MAIL_ADDRESS: Email to receive notifications
+#    - LANGUAGE: Programming language (e.g., java, python,go)
+#    - LANGUAGE_VERSION: Language version (only need for python between 3.2 to 3.12)
+# 3. Save and trigger the workflow manually under the "Actions" tab.
