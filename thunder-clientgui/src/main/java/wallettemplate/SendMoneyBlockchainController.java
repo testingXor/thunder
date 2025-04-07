@@ -75,7 +75,7 @@ public class SendMoneyBlockchainController {
         Main.OverlayUI<WalletPasswordController> pwd = Main.instance.overlayUI("wallet_password.fxml");
         final String addressStr = address.getText();
         final String amountStr = amountEdit.getText();
-        pwd.controller.aesKeyProperty().addListener((observable, old, cur) -> {
+        pwd.getController().aesKeyProperty().addListener((observable, old, cur) -> {
             // We only get here if the user found the right password. If they don't or they cancel, we end up back on
             // the main UI screen. By now the send money screen is history so we must recreate it.
             checkGuiThread();

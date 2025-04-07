@@ -165,7 +165,7 @@ public class Main extends Application {
 
     public class OverlayUI <T> {
         public Node ui;
-        public T controller;
+        private T controller;
 
         public OverlayUI (Node ui, T controller) {
             this.ui = ui;
@@ -210,6 +210,10 @@ public class Main extends Application {
             this.controller = null;
             currentOverlay = null;
         }
+
+		public T getController() {
+			return controller;
+		}
     }
 
     @Nullable

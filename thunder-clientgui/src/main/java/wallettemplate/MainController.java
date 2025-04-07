@@ -324,7 +324,7 @@ public class MainController {
 
     public void settingsClicked (ActionEvent event) {
         Main.OverlayUI<WalletSettingsController> screen = Main.instance.overlayUI("wallet_settings.fxml");
-        screen.controller.initialize(null);
+        screen.getController().initialize(null);
     }
 
     public void restoreFromSeedAnimation () {
