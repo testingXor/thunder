@@ -24,7 +24,11 @@ public class GossipSubjectImpl implements GossipSubject, BroadcastHelper {
 
     @Override
     public void registerObserver (NodeObserver observer) {
-        synchronized (observerList) {
+        
+		/* ********OpenRefactory Warning********
+		 Synchronization should be on a private final field
+		*/
+		synchronized (observerList) {
             observerList.add(observer);
             dataObjectMap.put(observer, new ArrayList<>());
         }
